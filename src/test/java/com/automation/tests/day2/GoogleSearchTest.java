@@ -16,6 +16,10 @@ public class GoogleSearchTest {
         driver.get("http://google.com");
         Thread.sleep(2000);
         //(By.name("q")) --> name ="q"
+        //name - it's one of the selenium locators
+        // there are 8 locators
+        // we use locators to find elements
+        // to choose locator, just use by.locator
         WebElement search = driver.findElement(By.name("q"));
         //once we found an element, how to enter text?
         //to enter text, use senKLeys() method
@@ -23,7 +27,14 @@ public class GoogleSearchTest {
         //use Key.ENTER
         //Keys.ENTER - perform keyboard click
         search.sendKeys("Java", Keys.ENTER);
-        Thread.sleep(2000);
+        Thread.sleep(4000);
+
+        //if see<a> element, it calls link
+        //visible text of this link, can be used by selenium to find this element
+        WebElement news = driver.findElement(By.linkText("News"));
+        news.click(); // to click on the element
+
+
         driver.quit();
 
 

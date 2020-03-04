@@ -55,6 +55,8 @@ public class JumpToNewWindow {
             driver.switchTo().window(window);
             if(driver.getTitle().equals(pageTitle));
             break;
+
+
         }
 
     }

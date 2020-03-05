@@ -79,6 +79,12 @@ verify url ends with `Selenium_(software)`
         driver.findElement(By.id("searchInput")).sendKeys("selenium webdriver",Keys.ENTER);
         driver.findElement(By.partialLinkText("Selenium (software)")).click();
 
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         String link = driver.getCurrentUrl(); // to get link as a String
         if(link.endsWith("Selenium_(software)")){
             System.out.println("Test passed");

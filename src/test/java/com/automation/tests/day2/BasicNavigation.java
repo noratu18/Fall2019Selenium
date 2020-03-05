@@ -12,6 +12,14 @@ public class BasicNavigation {
         WebDriverManager.chromedriver().setup();
         WebDriver driver = new ChromeDriver();
 
+        /*
+        Navigation:
+        driver.navigate().to("URL")
+        driver.navigate().back()
+        driver.navigate().forward()
+        driver.navigate().refresh()
+         */
+
         // In selenium, everything starts from WebDriver interface
         // ChromeDriver extends RemoteWebDriver--> implements WebDriver
         driver.get("http://google.com");//to open a website

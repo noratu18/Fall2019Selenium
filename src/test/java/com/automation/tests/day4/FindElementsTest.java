@@ -34,7 +34,7 @@ public class FindElementsTest {
             driver.navigate().back();
             Thread.sleep(2000);
             //refresh list
-            driver.findElements(By.tagName("a"));
+            links=driver.findElements(By.tagName("a"));
         }
 
         driver.quit();

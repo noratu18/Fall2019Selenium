@@ -20,15 +20,19 @@ public class FileUploading {
 
         //https://docs.oracle.com/javase/tutorial/essential/environment/sysprop.html
         //I am gonna upload pom.xml file
-        String filePath = System.getProperty("user.dir")+"/pom.xml";
+       String filePath = System.getProperty("user.dir")+"/pom.xml";
+        //it work only fo my computer beacuse only have this file
+        // and my computer username is different than yours
+        String filePath2 = "/Users/Baktyiar/Desktop/cybertek-nora/abstract.pages";
 
-        System.out.println(filePath);
 
-        upload.sendKeys(filePath);
+        System.out.println(filePath);//print path
 
-        driver.findElement(By.id("file-submit")).click();
+        upload.sendKeys(filePath2);
 
-        upload.sendKeys(filePath);
+        driver.findElement(By.id("file-submit")).click(); // click to upload
+
+
 
         BrowserUtils.wait(4);
         driver.quit();

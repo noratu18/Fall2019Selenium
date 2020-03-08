@@ -27,8 +27,8 @@ public class SelectByIndex {
         List<WebElement> stateList = stateSelect.getOptions();
         int count = 0;
         for(WebElement eachState: stateList){
-            count++;
             System.out.println(count+" = "+eachState.getText());
+            count++;
         }
 
 

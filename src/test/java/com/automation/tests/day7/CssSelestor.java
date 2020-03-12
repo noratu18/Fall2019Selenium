@@ -16,9 +16,11 @@ public class CssSelestor {
         WebElement btn1 = driver.findElement(By.cssSelector("[onclick='button1()']"));
         WebElement btn2 = driver.findElement(By.cssSelector("[name='button2']"));
         WebElement btn3 = driver.findElement(By.cssSelector("[id^='button_']"));
-        WebElement btn4 = driver.findElement(By.cssSelector("[onclick='button4']"));
-        WebElement btn5 = driver.findElement(By.cssSelector("#disapperaing_button"));
-        BrowserUtils.wait(2);
+        WebElement btn4 = driver.findElement(By.cssSelector("[onclick='button4()']"));
+        WebElement btn5 = driver.findElement(By.cssSelector("[onclick='button5()']"));
+        WebElement btn6 = driver.findElement(By.cssSelector("#disappearing_button"));
+
+
         btn1.click();
         BrowserUtils.wait(2);
         btn2.click();
@@ -29,6 +31,7 @@ public class CssSelestor {
         BrowserUtils.wait(2);
         btn5.click();
         BrowserUtils.wait(2);
+        btn6.click();
 
         driver.quit();
 

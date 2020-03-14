@@ -18,7 +18,7 @@ public class Java_Maps {
         System.out.println("numbers = " + numbers);
         numbers.addLast(90); // will add in the end of list
         System.out.println("numbers = " + numbers);
-        numbers.add(33);//will add in the las too
+        numbers.add(33);//will add in the last too
         System.out.println("numbers = " + numbers);
         Integer num = numbers.pollFirst(); // returns and deletes first element
         System.out.println("num = " + num);
@@ -34,7 +34,7 @@ public class Java_Maps {
         Describe all different collections (List, Queue, Set)
         explain the difference between them
 
-        List -> ArrayList most of the times, becasue I would usually just need to store some values
+        List -> ArrayList most of the times, because I would usually just need to store some values
         I would use LinkedList if I know I will to manipulate my date
         (consistently add, remove, ets.)
 

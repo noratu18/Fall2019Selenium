@@ -21,6 +21,10 @@ public class LoginPageTests {
     //https - data encrypted, no chance for hackers to retrieve info
     //http- data as a plain test, vey easy to hack it
     private String URL = "https://qa2.vytrack.com/user/login";
+    // Credentials for store manager
+    private String username = "storemanager85";
+    private String password = "UserUser123";
+
     private By usernameBy = By.id("prependedInput");
     private By passwordBy = By.id("prependedInput2");
     //in css selector means same thing as/in xpath - direct child
@@ -35,7 +39,23 @@ public class LoginPageTests {
         WebElement warningElement = driver.findElement(warningMessageBy);
         assertTrue(warningElement.isDisplayed());
 
+        String expected = "Invalid user name or password.";
+        String actual = warningElement.getText();
+        assertEquals(actual,expected);
     }
+
+    @Test(description = "Login as store manager and verify that title is equals to Dashboard")
+    public void loginAsStoreManager(){
+        driver.findElement(usernameBy).sendKeys("storemanager85");
+        driver.findElement(passwordBy).sendKeys("UserUser123", Keys.ENTER);
+        BrowserUtils.wait(5);
+
+        String expected = "Dashboard";
+        String actual = driver.getTitle();
+        System.out.println(driver.getTitle());
+        assertEquals(actual,expected,"Page title is not correct!");
+    }
+
 
     @BeforeMethod
     public void setup(){

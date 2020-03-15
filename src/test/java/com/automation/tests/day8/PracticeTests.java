@@ -24,6 +24,8 @@ public class PracticeTests {
         WebDriverManager.chromedriver().version("79").setup();
         //INTERVIEW QUESTION: HOW TO HANDLE SSL ISSUES IN SELENIUM???
         //ChromeOptions -> use to customize browser for tests
+        //and it helps us to automate unsecure websites without issues. Since cybertek practice does not carry
+        //any license and browser is trying to warn us about it, we make it to stop warning .
         ChromeOptions chromeOptions = new ChromeOptions();
         //to ignore "Your connection is not private issue"
         chromeOptions.setAcceptInsecureCerts(true);
@@ -53,7 +55,7 @@ public class PracticeTests {
 
     /*
     Given user is on the practice landing page
-    //When user navigates to "FOrgot password" page
+    //When user navigates to "Forgot password" page
     //Then user enters his email
     //And clsicks "Retrieve password" button
     //Then user verifies that message "Your email's been sent!" is displayed

@@ -35,9 +35,9 @@ public class MyFirstSeleniumScript {
         //2. go to cybertek practice website
 
         driver.get("https://www.google.com");
-        Thread.sleep(2000);;
+        Thread.sleep(5000);;
         driver.navigate().to("http://practice.cybertekschool.com/");
-        Thread.sleep(3000);
+        Thread.sleep(8000);
         driver.navigate().back();
 
         driver.close();

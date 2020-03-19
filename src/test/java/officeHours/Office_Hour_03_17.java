@@ -5,6 +5,8 @@ import com.automation.utilities.DriverFactory;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.internal.WebElementToJsonConverter;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.HashMap;
 
@@ -47,7 +49,45 @@ public class Office_Hour_03_17 {
         contact1.put("Country", "United States");
 
         System.out.println("contact1 = " + contact1);
-         
+
+        WebElement firstName =driver.findElement(By.xpath("(//input[@data-name = 'field__first-name'])[1]"));
+        WebElement lastName =driver.findElement(By.xpath("(//input[@data-name = 'field__last-name'])[1]"));
+         WebElement phone = driver.findElement(By.name("oro_contact_form[phones][0][phone]"));
+         WebElement street = driver.findElement(By.name("oro_contact_form[addresses][0][street]"));
+         WebElement city = driver.findElement(By.name("oro_contact_form[addresses][0][city]"));
+         WebElement state = driver.findElement(By.xpath("//input[@data-name = 'field__region-text']"));
+         WebElement zipCode = driver.findElement(By.xpath("//input[@data-name = 'field__postal-code']"));
+         WebElement salesGroup = driver.findElement(By.xpath("(//input[@data-name = 'field__1'])[2]"));
+
+         firstName.sendKeys(contact1.get("First Name"));
+         lastName.sendKeys(contact1.get("Last Name"));
+         phone.sendKeys(contact1.get("Phone"));
+         street.sendKeys(contact1.get("Street"));
+         city.sendKeys(contact1.get("City"));
+         state.sendKeys(contact1.get("State"));
+         zipCode.sendKeys(contact1.get("Zip Code"));
+
+         /*
+         to handle dropdowns in selenium we use Select class
+         to use it we have to ensure we have <select>,</select> tag in outr dropdown
+         to create Select class we are using webelement of <select></select> element from html ( we need to locate our
+         dropdown which should have select tag).
+
+         // this is  another option to find United States
+         //span[contains(text(),'United States')]
+          */
+
+        WebElement country = driver.findElement(By.name("oro_contact_form[addresses][0][country]"));
+        Select country_dropdown = new Select(country); // this is special class in selenium to handle dropdowns
+        /*
+        it has different methods that help us interact with dropdown
+         */
+        country_dropdown.selectByVisibleText(contact1.get("Country"));//to make it dynamic we choose country
+        if(contact1.get("Sales Group").equalsIgnoreCase("true")){
+            salesGroup.click();
+        }
+
+
 
 }
 }

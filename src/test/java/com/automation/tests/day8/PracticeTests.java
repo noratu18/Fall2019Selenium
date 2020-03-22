@@ -106,6 +106,7 @@ public class PracticeTests {
 
     @AfterMethod
     public void tearDown(){
+
         driver.quit();
     }
 

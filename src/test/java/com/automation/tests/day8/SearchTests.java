@@ -58,7 +58,7 @@ public class SearchTests {
         driver.findElement(By.id("twotabsearchtextbox")).sendKeys("Java",Keys.ENTER);
         BrowserUtils.wait(5);
 
-        //find all links inside h2 elements, beacuse he elements is not clicklable itself
+        //find all links inside h2 elements, because the elements not clicklable itself
         List<WebElement> searchItems = driver.findElements(By.xpath("//h2//a"));
 
         //click on the first item
@@ -75,21 +75,21 @@ public class SearchTests {
         Assert.assertTrue(productTitleString.contains("Java"));;
 
         //so h2 elements are not clickable, even though they contain links
-        //that's why , instead off collelction all h2 elements
+        //that's why , instead off collection all h2 elements
         //we collected all hyperlinks
-        //everry hyperlink represent some search item
+        //every hyperlink represent some search item
 
     }
 
     @BeforeMethod
     public void setup(){
-        //setuo webdriver
+        //setup webdriver
         WebDriverManager.chromedriver().version("79").setup();
         driver = new ChromeDriver();
     }
 
     public void tearDown(){
-        //close web browser and detroy webdriver object
+        //close web browser and destroy webdriver object
         driver.quit();
     }
 }

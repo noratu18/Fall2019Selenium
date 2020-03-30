@@ -74,8 +74,6 @@ public class CalendarEventsPageTests {
     Test Case: Default Options
     Login as sales manager
     Go to Activities--> Calendar Events
-    **
-
     Click on Create Calendar Event
     Default owner name should be current user
     Default title should be blank

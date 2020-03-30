@@ -11,7 +11,7 @@ public class Driver {
     private static WebDriver driver;
 
     //so no one can create object of Driver class
-    //everyone should call static getter method instead
+    //everyone should call static getter method instead private constructor
     private Driver(){
 
     }

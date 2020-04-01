@@ -19,9 +19,11 @@ public class Driver {
     public static WebDriver getDriver(){
         //if WebDriver object doesn't exist
         //create it
+        //check if the driver has value, if not assign a value
         if(driver==null){
             //specify browser type in configuration.properties file
             String  browser = ConfigurationReader.getProperty("browser");
+
             switch (browser){
                 case "chrome":
                     WebDriverManager.chromedriver().version("79").setup();

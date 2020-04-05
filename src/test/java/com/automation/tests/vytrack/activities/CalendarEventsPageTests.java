@@ -60,7 +60,7 @@ public class CalendarEventsPageTests {
         BrowserUtils.wait(3);
 
         driver.findElement(By.linkText("Calendar Events")).click();
-        BrowserUtils.wait(3);
+        BrowserUtils.wait(4);
 
     }
 
@@ -84,7 +84,7 @@ public class CalendarEventsPageTests {
     public void verifyDefaultValues(){
      //Click on Create Calendar Event
      driver.findElement(calendarEventBy).click();
-     BrowserUtils.wait(3);
+     BrowserUtils.wait(4);
 
 //Default owner name should be current user
         String currentUserName = driver.findElement(currentUserBy).getText().trim();

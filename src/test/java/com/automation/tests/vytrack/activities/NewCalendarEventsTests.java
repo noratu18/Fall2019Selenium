@@ -5,6 +5,7 @@ import com.automation.pages.activities.CalendarEventsPage;
 import com.automation.tests.vytrack.AbstractTestBase;
 import com.automation.utilities.DateTimeUtilities;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -24,6 +25,10 @@ public class NewCalendarEventsTests extends AbstractTestBase {
 
     @Test
     public void defaultOptionsTest(){
+        test = report.createTest("Verify default login options");
+
+        LoginPage loginPage = new LoginPage();
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
 
         loginPage.login();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
@@ -32,9 +37,10 @@ public class NewCalendarEventsTests extends AbstractTestBase {
         Assert.assertEquals(calendarEventsPage.getOwnerName(),calendarEventsPage.getCurrentUserName());
 
         String actualStartDate = calendarEventsPage.getStartDate();
-        String expectedStartDate = DateTimeUtilities.getCurrentDate("MMM dd, yyyy");
+        String expectedStartDate = DateTimeUtilities.getCurrentDate("MMM d, yyyy");
 
         Assert.assertEquals(actualStartDate, expectedStartDate);
+        test.pass("Default options verified");
 
     }
 
@@ -49,7 +55,12 @@ public class NewCalendarEventsTests extends AbstractTestBase {
 
     @Test
     public void timeDifferenceTest(){
+        test = report.createTest("Verify time difference");
+
+        LoginPage loginPage = new LoginPage();
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
         loginPage.login();
+
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
         calendarEventsPage.clickToCreateCalendarEvent();
 
@@ -60,6 +71,8 @@ public class NewCalendarEventsTests extends AbstractTestBase {
         long actual = DateTimeUtilities.getTimeDifference(startTime, endTime, format);
 
         Assert.assertEquals(actual, 1, "Time difference is not correct");
+
+        test.pass("Time difference verified");
     }
 
 //    ::::use qa1::::
@@ -77,6 +90,11 @@ public class NewCalendarEventsTests extends AbstractTestBase {
 
     @Test
     public void verifyColumnNamesTest(){
+        test = report.createTest("Verify column names");
+
+        LoginPage loginPage = new LoginPage();
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
         loginPage.login();
         calendarEventsPage.navigateTo("Activities", "Calendar Events");
 
@@ -84,6 +102,43 @@ public class NewCalendarEventsTests extends AbstractTestBase {
 
         Assert.assertEquals(calendarEventsPage.getColumnNames(), expected);
 
+        test.pass("Columns names verified");
+
 
     }
+
+    @Test(dataProvider = "calendarEvents")
+    public void createCalendarEventTest(String title, String description){
+
+        //because driver object was not initialized ij time
+        //just create page objects inside a test
+        LoginPage loginPage = new LoginPage();
+        CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
+
+        //only for extent report, to create a test in html report
+        test = report.createTest("Create calendar event for " + title);
+        loginPage.login();
+        calendarEventsPage.navigateTo("Activities", "Calendar Events");
+        calendarEventsPage.clickToCreateCalendarEvent();
+        calendarEventsPage.enterCalendarEventTitle(title);
+        calendarEventsPage.enterCalendarEventDescription(description);
+        calendarEventsPage.clickSaveAndClose();
+
+        //verify that calendar event info is correct
+        Assert.assertEquals(calendarEventsPage.getGeneralInfoDescriptionText(),description);
+        Assert.assertEquals(calendarEventsPage.getGeneralInfoTitle(), title);
+
+        //for extent repot, specify that test passed in report (if all assertions passed)
+        test.pass("Calendar event was created successfully!");
+    }
+
+
+    @DataProvider
+    public Object[][] calendarEvents(){
+        return new Object[][]{
+                {"Daily stand-up", "Scrum meeting to provide updates"},
+                {"Sprint review", "Scrum meeting where team discussing previous sprint"},
+                {"Sprint Planning", "Sprint meeting where team discussing backlog for following sprint"}
+        };
+}
 }

@@ -28,6 +28,7 @@ public class LoginPage {
     private WebElement warningMessage;
 
 
+    //this is constructor
     public LoginPage(){
         //to connect our webDriver, page class and page factory
         //pageFactory-used to use @FindBy annotations

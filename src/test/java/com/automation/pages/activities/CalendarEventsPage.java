@@ -33,6 +33,59 @@ public class CalendarEventsPage extends AbstractPageBase {
     @FindBy(className = "grid-header-cell__label")
     private List<WebElement> columnNames;
 
+    @FindBy(css="[id^='oro_calendar_event_form_title-uid']")
+    private WebElement title;
+    //when there is a frame we need to switch to frame first
+
+    @FindBy(css = "iframe[id^='oro_calendar_event_form_description-uid']")
+    private WebElement descriptionFrame;
+    //*[text()='Description']/../following-sibling::div//iframe
+
+    @FindBy(id = "tinymce")
+    private WebElement descriptionTextArea;
+
+    @FindBy(css = "[class='btn-group pull-right'] > button")
+    private WebElement saveAndClose;
+
+    @FindBy(xpath = "(//div[@class='control-label'])[1]")
+    private WebElement generalInfoTitle;
+    //label[text()='Title']/..//div[@class='control-label']
+
+    @FindBy(xpath = "//label[text()='Description']/following-sibling::div//div")
+    private WebElement generalInfoDescription;
+
+    public void enterCalendarEventTitle(String titleValue){
+        BrowserUtils.waitForPageToLoad(30);
+        wait.until(ExpectedConditions.visibilityOf(title)).sendKeys(titleValue);
+    }
+
+    public void enterCalendarEventDescription(String description){
+        BrowserUtils.waitForPageToLoad(20);
+        //wait until frame is available and switch to it
+        // the benefit of this method is we don't need to switch frame inside test
+        //everything is covered inside page, all kind of page
+        wait.until(ExpectedConditions.frameToBeAvailableAndSwitchToIt(descriptionFrame));
+        descriptionTextArea.sendKeys(description);
+        driver.switchTo().defaultContent();//exit from the frame
+        BrowserUtils.wait(3);
+    }
+
+    public void clickSaveAndClose(){
+        wait.until(ExpectedConditions.elementToBeClickable(saveAndClose)).click();
+        BrowserUtils.wait(3);
+
+    }
+
+    public String getGeneralInfoTitle(){
+        return generalInfoTitle.getText();
+    }
+
+    public String getGeneralInfoDescriptionText(){
+        BrowserUtils.waitForPageToLoad(20);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//label[text()='Description']/following-sibling::div//div")));
+        return generalInfoDescription.getText();
+    }
+//////////////////the above code is new we added today/////////////////
 
     public List<String> getColumnNames(){
         BrowserUtils.waitForPageToLoad(20);
@@ -44,7 +97,7 @@ public class CalendarEventsPage extends AbstractPageBase {
     public String getStartTime() {
         BrowserUtils.waitForPageToLoad(20);
         //we can use if giving error no such element found in startTime
-     //   wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[id^='time_selector_oro_calendar_event_form_start']")));
+    //  wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[id^='time_selector_oro_calendar_event_form_start']")));
         wait.until(ExpectedConditions.visibilityOf(startTime));
         return startTime.getAttribute("value");
     }
@@ -70,9 +123,9 @@ public class CalendarEventsPage extends AbstractPageBase {
     public void clickToCreateCalendarEvent(){
         BrowserUtils.waitForPageToLoad(20);
         // we cann add this if it is failing
-      //  wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title='Create Calendar event']")));
+       wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[title='Create Calendar event']")));
         wait.until(ExpectedConditions.elementToBeClickable(createCalendarEvent)).click();
-        BrowserUtils.waitForPageToLoad(10);
+        BrowserUtils.waitForPageToLoad(20);
     }
 
     public String getStartDate(){

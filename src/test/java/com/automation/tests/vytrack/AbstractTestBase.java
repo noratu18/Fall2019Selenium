@@ -1,5 +1,7 @@
 package com.automation.tests.vytrack;
 
+//Abstract testBase is important to save time and have clean code, always create abstracttestbase class
+
 import com.automation.utilities.BrowserUtils;
 import com.automation.utilities.ConfigurationReader;
 import com.automation.utilities.Driver;
@@ -29,10 +31,10 @@ public abstract class AbstractTestBase {
     @Parameters("reportName")
     public void setupTest(@Optional String reportName){
         System.out.println("Report name: "+reportName);
-
-        reportName = reportName == null ? "report.html" : reportName;
+        reportName = reportName == null ? "report.html" : reportName+ ".html";
 
         report = new ExtentReports();
+
         String reportPath = "";
         //location of report file
         if (System.getProperty("os.name").toLowerCase().contains("win")) {
@@ -60,7 +62,7 @@ public abstract class AbstractTestBase {
         String URL = ConfigurationReader.getProperty("qa3");
         Driver.getDriver().get(URL);
         Driver.getDriver().manage().window().maximize();
-        wait=new WebDriverWait(Driver.getDriver(),15);
+        wait=new WebDriverWait(Driver.getDriver(),25);
         actions=new Actions(Driver.getDriver());
 
     }
@@ -72,12 +74,13 @@ public abstract class AbstractTestBase {
         if(iTestResult.getStatus()== ITestResult.FAILURE ){
             //screenshot will have a name of the test
             String screenshotPath = BrowserUtils.getScreenShot(iTestResult.getName());
-            test.fail(iTestResult.getName());
+            test.fail(iTestResult.getName());//attach test name that failed
             BrowserUtils.wait(4);
-            test.addScreenCaptureFromPath(screenshotPath, "Failed");
+            test.addScreenCaptureFromPath(screenshotPath, "Failed");//attach screenshot
            // attach test name that failed
             test.fail(iTestResult.getThrowable());//attach console output
         }
+        BrowserUtils.wait(2);
         Driver.closeDriver();
     }
 }

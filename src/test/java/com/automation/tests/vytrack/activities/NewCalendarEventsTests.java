@@ -40,6 +40,7 @@ public class NewCalendarEventsTests extends AbstractTestBase {
         String expectedStartDate = DateTimeUtilities.getCurrentDate("MMM d, yyyy");
 
         Assert.assertEquals(actualStartDate, expectedStartDate);
+
         test.pass("Default options verified");
 
     }
@@ -109,8 +110,9 @@ public class NewCalendarEventsTests extends AbstractTestBase {
 
     @Test(dataProvider = "calendarEvents")
     public void createCalendarEventTest(String title, String description){
-
-        //because driver object was not initialized ij time
+        //if you have more one test, and 1st pass but others failing
+        //you are getting session id is null exception
+        //because driver object was not initialized in time
         //just create page objects inside a test
         LoginPage loginPage = new LoginPage();
         CalendarEventsPage calendarEventsPage = new CalendarEventsPage();
@@ -137,7 +139,7 @@ public class NewCalendarEventsTests extends AbstractTestBase {
     public Object[][] calendarEvents(){
         return new Object[][]{
                 {"Daily stand-up", "Scrum meeting to provide updates"},
-                {"Sprint review", "Scrum meeting where team discussing previous sprint"},
+                {"Sprint Review", "Scrum meeting where team discussing previous sprint"},
                 {"Sprint Planning", "Sprint meeting where team discussing backlog for following sprint"}
         };
 }

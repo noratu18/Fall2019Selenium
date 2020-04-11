@@ -32,6 +32,10 @@ public abstract class AbstractPageBase {
 
     //constructor
     public AbstractPageBase(){
+        //it is VERY important ! it serves to initialize the object and it finds the Elements!!
+        //without it NO PAGE Object Model class will work !!!
+        //finding web elements in POM : selenium has smth to improve this process : Page Factory class
+        // It helps to find element easier, syntax is shorter, more organized
         PageFactory.initElements(driver,this);
 
     }

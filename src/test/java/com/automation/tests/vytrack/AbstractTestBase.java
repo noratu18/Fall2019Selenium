@@ -5,6 +5,7 @@ package com.automation.tests.vytrack;
 import com.automation.utilities.BrowserUtils;
 import com.automation.utilities.ConfigurationReader;
 import com.automation.utilities.Driver;
+import com.automation.utilities.ExcelUtil;
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
@@ -24,6 +25,9 @@ public abstract class AbstractTestBase {
     protected ExtentReports report;
     protected ExtentHtmlReporter htmlReporter;
     protected ExtentTest test;
+    protected static int row = 1;
+    protected ExcelUtil excelUtil;
+
 
     //@Optional--> to make parameter optional
     //if you don't specify it, testing will requiire to specify this parameter for every test in xml runner
@@ -71,6 +75,7 @@ public abstract class AbstractTestBase {
     public void tearDown(ITestResult iTestResult) throws IOException {
         //ITestResult class describes the result of a test
         //if test failed, take a screenshot
+        //no failure-no screenshot
         if(iTestResult.getStatus()== ITestResult.FAILURE ){
             //screenshot will have a name of the test
             String screenshotPath = BrowserUtils.getScreenShot(iTestResult.getName());
@@ -79,6 +84,11 @@ public abstract class AbstractTestBase {
             test.addScreenCaptureFromPath(screenshotPath, "Failed");//attach screenshot
            // attach test name that failed
             test.fail(iTestResult.getThrowable());//attach console output
+            //if excelUtil object was created
+            //set value if result column to failed
+            if(excelUtil != null){
+                excelUtil.setCellData("FAILED", "result", row++);
+            }
         }
         BrowserUtils.wait(2);
         Driver.closeDriver();

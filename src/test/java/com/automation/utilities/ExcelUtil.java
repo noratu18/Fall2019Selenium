@@ -25,9 +25,13 @@ public class ExcelUtil {
         this.path = path;
         try {
             // Open the Excel file/FileInputStream ->we need to read from outside file
+            //to get the object excel file
             FileInputStream ExcelFile = new FileInputStream(path);
             // Access the required test data sheet
+            //WorkbookFactory can read from HSSFWorkbook(old type of excel) and new type of excel
+            //WorkBookFactory is generic class that we use for all excel types
             workBook = WorkbookFactory.create(ExcelFile);
+            //workSheet is just one specific sheet in excel file
             workSheet = workBook.getSheet(sheetName);
             // check if sheet is null or not. null means  sheetname was wrong
             Assert.assertNotNull(workSheet, "Sheet: \"" + sheetName + "\" does not exist\n");
@@ -130,7 +134,9 @@ public class ExcelUtil {
             }
             FileOutputStream fileOut = new FileOutputStream(path);
             workBook.write(fileOut);
-
+            //we have to close the file, if we don't close the file
+            // maybe we'll never can open again the file
+            //always CLOSE THE FILE!!!!
             fileOut.close();
         } catch (Exception e) {
             e.printStackTrace();

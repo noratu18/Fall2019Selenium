@@ -1,6 +1,5 @@
 package com.automation.pages;
 
-import com.automation.tests.day10.ActionsTests;
 import com.automation.utilities.BrowserUtils;
 import com.automation.utilities.Driver;
 import org.openqa.selenium.By;
@@ -72,7 +71,7 @@ public abstract class AbstractPageBase {
                 click(moduleElement).
                 build().perform();
 
-        //increase this time wait if sill failing
+        //increase this time wait if still failing
         BrowserUtils.wait(4);
 
     }

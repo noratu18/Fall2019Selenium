@@ -3,7 +3,6 @@ package com.automation.pages;
 import com.automation.utilities.BrowserUtils;
 import com.automation.utilities.ConfigurationReader;
 import com.automation.utilities.Driver;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -36,6 +35,10 @@ public class LoginPage {
         PageFactory.initElements(Driver.getDriver(),this);
     }
 
+    /**
+     *
+     * @return warning message on login page
+     */
     public String getWarningMessageText(){
         return warningMessage.getText();
     }

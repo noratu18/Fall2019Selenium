@@ -112,6 +112,8 @@ public class ExcelUtil {
         return columns;
     }
 
+
+
     /**
      * Write something into excel file
      * @param value what should be written
@@ -142,6 +144,8 @@ public class ExcelUtil {
             e.printStackTrace();
         }
     }
+
+
 
     public void setCellData(String value, String columnName, int row) {
         int column = getColumnsNames().indexOf(columnName);
